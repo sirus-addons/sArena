@@ -1,9 +1,11 @@
-# sArena for 3.3.5 version (backported from WoD)
+sArena дополняет стандартные арена фреймы, делает их подвижными и позволяет изменять размер. Отображает настраиваемые каст бары, и кулдауны противников.
 
-#### Advanced settings
-* now ArenaEnemyCastBar can be moveable
-* now ArenaEnemyCastBar can be set size or width
-* now can be set padding between arena frames
+Функции:
+Перемещение арена фреймов
+Изменение размеров юнит фрейма
+Изменение размеров каст-бара
+Отображение кд тринкетов
+Цветовое обозначение классов
 
-###### support me
+###### Поддержать автора аддона
 * https://streamlabs.com/qbjw/tip
