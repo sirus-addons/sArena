@@ -22,7 +22,10 @@ local races = {
 	[18] = "Goblin",
 	[19] = "DarkIronDwarf",
 	[20] = "Eredar",
-	[21] = "None"
+	[21] = "ZandalariTroll",
+	[22] = "Lightforged",
+	[22] = "Dracthyr",
+	[23] = "None"
 }
 
 raceIcons = {
@@ -39,7 +42,7 @@ raceIcons = {
 	Naga = {
 		id = 316413,
 		icon = select(3, GetSpellInfo(316413)),
-		cd = 120,
+		cd = 90,
 	},
 	Vulpera = {
 		id = 316455,
@@ -49,7 +52,7 @@ raceIcons = {
 	Goblin = {
 		id = 316393,
 		icon = select(3, GetSpellInfo(316393)),
-		cd = 90,
+		cd = 120,
 	},
 	Draenei = {
 		id = 316279,
@@ -59,7 +62,7 @@ raceIcons = {
 	Orc = {
 		id = 316372,
 		icon = select(3, GetSpellInfo(316372)),
-		cd = 120,
+		cd = 90,
 	},
 	Queldo = {
 		id = 316294,
@@ -80,7 +83,7 @@ raceIcons = {
 	Troll = {
 		id = 316405,
 		icon = select(3, GetSpellInfo(316405)),
-		cd = 120,
+		cd = 90,
 	},
 	NightElf = {
 		id = 316254,
@@ -90,7 +93,7 @@ raceIcons = {
 	Pandaren = {
 		id = 316443,
 		icon = select(3, GetSpellInfo(316443)),
-		cd = 60,
+		cd = 90,
 	},
 	Dwarf = {
 		id = 316243,
@@ -110,7 +113,7 @@ raceIcons = {
 	Nightborne = {
 		id = 316431,
 		icon = select(3, GetSpellInfo(316431)),
-		cd = 45,
+		cd = 30,
 	},
 	VoidElf = {
 		id = 316367,
@@ -126,6 +129,21 @@ raceIcons = {
 		id = 316465,
 		icon = select(3, GetSpellInfo(316465)),
 		cd = 60,
+	},
+	ZandalariTroll = {
+		id = 310810,
+		icon = select(3, GetSpellInfo(310810)),
+		cd = 120,
+	},
+	Lightforged = {
+		id = 319322,
+		icon = select(3, GetSpellInfo(319322)),
+		cd = 90,
+	},
+	Dracthyr = {
+		id = 320552,
+		icon = select(3, GetSpellInfo(320552)),
+		cd = 120,
 	},
 	None = {
 		id = nil,
@@ -167,7 +185,7 @@ function RACIAL_UNIT_SPELLCAST_SUCCEEDED(self, ...)
 	local isRun = false
 	
 	for race, raceData in pairs(raceIcons) do
-		if spellId == raceData.id or (raceData.alt and raceData.alt[spellId]) then
+		if spellId == raceData.id or (raceData.alt and raceData.alt[tostring(spellId)]) then
 			isRun = true
 			self.time = tonumber(raceData.cd)
 			self.starttime = GetTime()
