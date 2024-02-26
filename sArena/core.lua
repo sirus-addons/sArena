@@ -5,8 +5,8 @@ addon.exclamation = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:0
 addon.testMode = false
 
 addon.overallCooldown = {
-	["Human"] = 90,
-	["Scourge"] = 45,
+	[371796] = 90,
+	[371804] = 45,
 }
 
 addon.defaultSettings = {
@@ -245,6 +245,7 @@ addon.eventHandler = CreateFrame("Frame")
 addon.eventHandler:SetScript("OnEvent", addon.OnEvent)
 addon.eventHandler:RegisterEvent("ADDON_LOADED")
 addon.eventHandler:RegisterEvent("PLAYER_ENTERING_WORLD")
+addon.eventHandler:RegisterEvent("UNIT_AURA")
 
 function addon:SetupDrag(module, updateSettings, frameToClick, frameToMove)
 	if not frameToMove then
@@ -290,6 +291,17 @@ function addon:SetupDrag(module, updateSettings, frameToClick, frameToMove)
 			end
 		end
 	end)
+end
+
+function addon.detectConstellation(unit)
+	for key = 1, 40 do
+		local _, _, icon, _, _, duration, expirationTime, _, _, _, spellID = UnitAura(unit, key, "HARMFUL")
+		if spellID ~= nil and constellations2Spells[spellID] then
+			return constellations2Spells[spellID]
+		end
+	end
+
+	return;
 end
 
 
