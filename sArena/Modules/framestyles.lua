@@ -94,6 +94,10 @@ local unpack = unpack
 local CLASS_ICON_TCOORDS = CLASS_ICON_TCOORDS
 
 function module:OnEvent(event, ...)
+	if event == "UNIT_AURA" then
+		return;
+	end
+
 	for i = 1, MAX_ARENA_ENEMIES do
 		local arenaFrame = _G["ArenaEnemyFrame"..i]
 		if event == "ADDON_LOADED" then
@@ -110,9 +114,8 @@ function module:OnEvent(event, ...)
 			if _layout then
 				_layout:SetFrameStyle(arenaFrame, self.db)
 			end
-			
+
 			local font, _, flags = arenaFrame.healthbar.TextString:GetFont()
-			local _font, _, _flags = arenaFrame.manabar.TextString:GetFont()
 			
 			if self.db.healthBarFontSize > 0 then
 				arenaFrame.healthbar.TextString:SetFont(font, self.db.healthBarFontSize, flags)
@@ -122,7 +125,7 @@ function module:OnEvent(event, ...)
 			end
 			
 			if self.db.powerBarFontSize > 0 then
-				arenaFrame.manabar.TextString:SetFont(font, self.db.powerBarFontSize, _flags)
+				arenaFrame.manabar.TextString:SetFont(font, self.db.healthBarFontSize, flags)
 				arenaFrame.manabar.TextString:Show()
 			else
 				arenaFrame.manabar.TextString:Hide()
@@ -172,12 +175,13 @@ local classIcons = {
 
 hooksecurefunc("ArenaEnemyFrame_UpdatePlayer", function(self)
 	local _, class = UnitClass(self.unit)
-	local _, race = UnitRace(self.unit)
-	
-	local raceData = raceIcons[race]
+
+	local raceData = addon.detectConstellation(self.unit)
+
 	if raceData then
 		self.racial.Icon:SetTexture(raceData.icon)
 	end
+
 	if class then
 		if addon.squareClassPortrait then
 			self.classPortrait:SetTexture("Interface\\WorldStateFrame\\ICONS-CLASSES")
