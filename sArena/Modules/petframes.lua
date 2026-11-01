@@ -12,12 +12,11 @@ module.optionsTable = {
 		order = 1,
 		type = "toggle",
 		name = addon.exclamation.."Enable",
-		desc = "|cffff5555NOTICE:|r Changing this setting will cause a UI reload.",
+		desc = "|cffff5555NOTICE:|r Changing this setting requires a UI reload (/reload).",
 		get = function() return GetCVar("showArenaEnemyPets") == "1" and true or false end,
 		set = function(info, val)
-			SHOW_ARENA_ENEMY_PETS = val and "1" or "0"
 			SetCVar("showArenaEnemyPets", val and 1 or 0)
-			ReloadUI()
+			print(addonName .. ": Type /reload to apply.")
 		end,
 	},
 	break1 = {
